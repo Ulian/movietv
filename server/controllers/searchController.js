@@ -6,7 +6,7 @@ const language = config.API.LANGUAGE || 'es-ES'
 const search = {}
 
 search.query = (req, res) => {
-  const query = encodeURI(req.params.query)
+  const query = req.params.query
 
   const params = {
     query,
