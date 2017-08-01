@@ -1,0 +1,11 @@
+{
+  "API": {
+    "KEY": "",
+    "LANGUAGE": "es-ES",
+    "CACHE_TIME": "5",
+    "CACHE_TYPE": "hours"
+  },
+  "SERVER": {
+    "PORT": 80
+  }
+}

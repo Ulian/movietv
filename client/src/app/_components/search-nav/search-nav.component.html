@@ -1,0 +1,5 @@
+<form class="navbar-form navbar-left" role="search">
+  <div class="input-group">
+    <input type="text" class="form-control" name="search" [(ngModel)]="input" placeholder="Buscar..." (keyup)="search(input, $event)" (blur)="search(input, $event)">
+  </div>
+</form>

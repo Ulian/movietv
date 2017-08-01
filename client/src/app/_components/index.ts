@@ -1,0 +1,11 @@
+export { AppComponent } from './app/app.component';
+export { MoviesComponent } from './movies/movies.component';
+export { MovieComponent } from './movie/movie.component';
+export { TvShowsComponent } from './tv-shows/tv-shows.component';
+export { TvShowComponent } from './tv-show/tv-show.component';
+export { SeasonComponent } from './season/season.component';
+export { CelebritiesComponent } from './celebrities/celebrities.component';
+export { CelebritieComponent } from './celebritie/celebritie.component';
+export { SearchComponent } from './search/search.component';
+export { SearchNavComponent } from './search-nav/search-nav.component';
+export { CollectionComponent } from './collection/collection.component';

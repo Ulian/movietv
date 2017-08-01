@@ -1,0 +1,78 @@
+body {
+	background: #CACCSA;
+	padding-bottom: 25px;
+	line-height: 1.8 !important;
+}
+
+.poster {
+	width: 185px !important;
+	height: 278px !important;
+}
+
+img.poster {
+	vertical-align: baseline !important;
+	margin-bottom: 10px;
+}
+
+img.poster.person:before {
+	background-color: grey;
+}
+
+.navbar-first {
+	margin-bottom: 0px !important;
+}
+
+h4.person {
+	background-color: #e7e7e7;
+	margin: 10px auto 0;
+	width: 185px;
+	padding: 10px;
+}
+
+.load-more {
+	background-color: #e7e7e7;
+}
+
+.img-space {
+	margin-bottom: 10px;
+}
+
+.nav-space {
+	margin-bottom: 20px;
+}
+
+.vid-space {
+	margin-bottom: 20px;
+}
+
+.label-space {
+	margin-left: 2px;
+}
+
+@media (min-width: 992px) {
+	.col-md-3 {
+		width: 20.0% !important;
+	}
+	.biography {
+		margin-top: 10px;
+		text-align: justify;
+	}
+}
+
+.zoom-in {
+	transition: all .2s ease-in-out;
+	transform: scale(1.05);
+}
+
+.zoom-out {
+	transition: all .2s ease-in-out;
+	transform: scale(1);
+}
+
+.after-nav {
+  margin-top: 20px;
+}
+
+.pointer {
+  cursor: pointer;
+}

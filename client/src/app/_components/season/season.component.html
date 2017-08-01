@@ -1,0 +1,52 @@
+<ng-template [ngIf]="season">
+  <div class="row">
+  	<div class="col-md-3 col-sm-4 text-center">
+  		<h4> {{ season.name }} </h4>
+      <img src="{{ (season.poster_path) ? 'https://image.tmdb.org/t/p/w185' + season.poster_path : 'https://placehold.it/185x278?text=' + season.name }}" class="poster" />
+  	</div>
+  	<div class="col-md-9 biography">
+  		<div>
+  			<span class="label label-success" *ngIf="season.air_date.length > 0">{{ season.air_date | amDateFormat:'DD/MM/YYYY' }}</span>
+  			<span class="label label-info" *ngIf="season.episodes.length > 0">{{ season.episodes.length }} episodios</span>
+  		</div>
+  		{{ season.overview }}
+  	</div>
+  </div>
+
+  <div class="row" *ngIf="season.episodes.length > 0">
+  	<h4>Episodios</h4>
+    <div class="panel-group" id="accordion">
+      <div class="panel panel-default" *ngFor="let episode of season.episodes">
+        <div class="panel-heading">
+          <h4 class="panel-title">
+            <a data-toggle="collapse" data-parent="#accordion" href="#collapse{{ episode.episode_number }}">
+              <strong>{{ (episode.name.length > 0) ? episode.name : 'Episode ' + episode.episode_number }}</strong>
+              <span class="badge pull-right">{{ episode.episode_number }}</span>
+            </a>
+          </h4>
+        </div>
+        <div id="collapse{{ episode.episode_number }}" class="panel-collapse collapse {{ (episode.episode_number === 1) ? 'in' : '' }}">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-2">
+                <img src="{{ (episode.still_path) ? 'https://image.tmdb.org/t/p/w185' + episode.still_path : 'https://placehold.it/185x104?text=' + 'Episode ' + episode.episode_number }}" />
+              </div>
+      				<div class="col-md-1">
+      					<span class="label label-success" *ngIf="episode.vote_count > 0">{{ episode.vote_average | number: '1.2-2'}} ({{ episode.vote_count}})</span>
+      					<span class="label label-info">{{ episode.air_date | amDateFormat:'DD/MM/YYYY' }}</span>
+      				</div>
+      				<div class="col-md-7">
+      					{{ episode.overview }}
+      				</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<div class="text-center after-nav" *ngIf="!season">
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+  <span class="sr-only">Loading...</span>
+</div>

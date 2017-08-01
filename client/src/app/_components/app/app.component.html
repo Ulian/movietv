@@ -1,0 +1,54 @@
+<nav class="navbar navbar-default navbar-first">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" routerLink="/"><b>MOVIETV</b></a>
+    </div>
+
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+      <ul class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/movies">Películas</a></li>
+        <li routerLinkActive="active"><a routerLink="/tvshows">Series</a></li>
+        <li routerLinkActive="active"><a routerLink="/celebrities">Celebridades</a></li>
+      </ul>
+
+      <app-search-nav></app-search-nav>
+    </div>
+  </div>
+</nav>
+
+<nav class="navbar navbar-default"  *ngIf="path == 'tvshows' || path == 'movies'">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-2" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+    </div>
+    <div id="bs-example-navbar-collapse-2" class="collapse navbar-collapse">
+      <ul *ngIf="path == 'movies'" class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/movies/popular">Populares</a></li>
+        <li routerLinkActive="active"><a routerLink="/movies/now_playing">Cartelera</a></li>
+        <li routerLinkActive="active"><a routerLink="/movies/top_rated">Mejor Puntuadas</a></li>
+        <li routerLinkActive="active"><a routerLink="/movies/upcoming">Proximamente</a></li>
+      </ul>
+      <ul *ngIf="path == 'tvshows'" class="nav navbar-nav">
+        <li routerLinkActive="active"><a routerLink="/tvshows/popular">Populares</a></li>
+        <li routerLinkActive="active"><a routerLink="/tvshows/top_rated">Mejor Puntuadas</a></li>
+        <li routerLinkActive="active"><a routerLink="/tvshows/airing_today">Hoy</a></li>
+        <li routerLinkActive="active"><a routerLink="/tvshows/on_the_air">Esta semana</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<div class="container">
+  <router-outlet></router-outlet>
+</div>

@@ -1,0 +1,25 @@
+<ng-template [ngIf]="collection">
+  <div class="row">
+    <div class="col-md-3 col-sm-4 text-center">
+      <h4>{{ collection.name }}</h4>
+      <img appImageHover src="{{ (collection.poster_path) ? 'https://image.tmdb.org/t/p/w185' + collection.poster_path : 'https://placehold.it/185x278?text=' + collection.name }}" class="poster animated"/>
+    </div>
+    <div class="col-md-9 biography">
+      {{ collection.overview }}
+    </div>
+  </div>
+
+  <div class="row" *ngIf="collection.parts.length > 0">
+    <h4>Partes</h4>
+    <div class="col-md-3 col-sm-4 text-center" *ngFor="let movie of collection.parts" >
+      <a routerLink="/movie/{{ movie.id }}/{{ movie.title | slugify }}">
+        <img appImageHover src="{{ (movie.poster_path) ? 'https://image.tmdb.org/t/p/w185' + movie.poster_path : 'https://placehold.it/185x278?text=' + movie.title }}" class="poster animated"/>
+      </a>
+    </div>
+  </div>
+</ng-template>
+
+<div class="text-center after-nav" *ngIf="!collection">
+  <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
+  <span class="sr-only">Loading...</span>
+</div>
