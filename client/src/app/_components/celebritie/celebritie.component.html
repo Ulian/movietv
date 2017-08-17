@@ -11,8 +11,8 @@
     </div>
     <div class="col-md-9 biography">
   		<div>
-  			<span class="label label-success" *ngIf="celebritie.birthday.length > 0">{{ celebritie.birthday | amDateFormat:'DD/MM/YYYY' }}</span>
-  			<span class="label label-danger" *ngIf="celebritie.deathday.length > 0">{{ celebritie.deathday | amDateFormat:'DD/MM/YYYY' }}</span>
+  			<span class="label label-success" *ngIf="celebritie.birthday">{{ celebritie.birthday | amDateFormat:'DD/MM/YYYY' }}</span>
+  			<span class="label label-danger" *ngIf="celebritie.deathday">{{ celebritie.deathday | amDateFormat:'DD/MM/YYYY' }}</span>
   			<span class="label label-info" *ngIf="celebritie.place_of_birth">{{ celebritie.place_of_birth }}</span>
   		</div>
   		{{ celebritie.biography }}

@@ -13,7 +13,7 @@ search.query = (req, res) => {
     language
   }
 
-  if (query.length <= 3) {
+  if (query.length < 3) {
     return res.status(400).json({ message: 'Query must be at lest 3 character' }) // translate
   }
 
