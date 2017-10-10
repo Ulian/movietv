@@ -6,6 +6,7 @@ import { Modal } from 'angular2-modal/plugins/bootstrap';
 
 import { MoviesService } from '../../_services/index';
 
+import { DataLimit } from '../../_interfaces/index';
 
 @Component({
   selector: 'app-movie',
@@ -14,16 +15,10 @@ import { MoviesService } from '../../_services/index';
 })
 export class MovieComponent implements OnInit {
   movie: object;
-  cast_limit = 0;
-  hide_cast_button = false;
-  crew_limit = 0;
-  hide_crew_button = false;
-  images_limit = 0;
-  hide_images_button = false;
-  videos_limit = 0;
-  hide_videos_button = false;
-  limit_increment = 5;
-  limit_increment_video = 2;
+  cast = new DataLimit();
+  crew = new DataLimit();
+  images = new DataLimit();
+  videos = new DataLimit(2, false, 2);
 
   constructor(
     private moviesService: MoviesService,
@@ -49,26 +44,19 @@ export class MovieComponent implements OnInit {
   }
 
   loadMore(type) {
-    if (type === 'cast') {
-      this.cast_limit += this.limit_increment;
-      if (this.cast_limit >= this.movie['credits']['cast'].length) {
-        this.hide_cast_button = true;
-      }
-    } else if (type === 'crew') {
-      this.crew_limit += this.limit_increment;
-      if (this.crew_limit >= this.movie['credits']['crew'].length) {
-        this.hide_crew_button = true;
-      }
-    } else if (type === 'images') {
-      this.images_limit += this.limit_increment;
-      if (this.images_limit >= this.movie['images']['backdrops'].length) {
-        this.hide_images_button = true;
-      }
-    } else if (type === 'videos') {
-      this.videos_limit += this.limit_increment_video;
-      if (this.videos_limit >= this.movie['videos']['results'].length) {
-        this.hide_videos_button = true;
-      }
+    switch (type) {
+      case 'cast':
+      case 'crew':
+      case 'images':
+      case 'videos':
+        const loadType = (type !== 'images' && type !== 'videos') ? 'credits' : type;
+        const loadType2 = (type !== 'images' && type !== 'videos') ? type : (type === 'images') ? 'backdrops' : 'results';
+
+        this[type].limit += this[type].increment;
+        if (this[type].limit >= this.movie[loadType][loadType2].length) {
+          this[type].hide_button = true;
+        }
+        break;
     }
   }
 

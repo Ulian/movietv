@@ -7,12 +7,12 @@
     </div>
   </div>
 
-  <a class="pointer" *ngIf="celebrities && !no_more_pages && !celebrities_loading">
+  <a class="pointer" *ngIf="celebrities && !pagination.no_pages_left && !pagination.loading">
     <div class="btn btn-primary form-control text-center" (click)="moreCelebrities(true)">Cargar más...</div>
   </a>
 </ng-template>
 
-<div class="text-center after-nav" *ngIf="celebrities_loading">
+<div class="text-center after-nav" *ngIf="pagination.loading">
   <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
   <span class="sr-only">Loading...</span>
 </div>

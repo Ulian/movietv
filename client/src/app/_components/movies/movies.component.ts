@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { MoviesService } from '../../_services/index';
 
+import { Pagination } from '../../_interfaces/index';
+
 @Component({
   selector: 'app-movies',
   templateUrl: './movies.component.html',
@@ -10,11 +12,7 @@ import { MoviesService } from '../../_services/index';
 })
 export class MoviesComponent implements OnInit {
   movies: string[];
-  page: number;
-  state: string;
-  total_pages: number;
-  no_more_pages = false;
-  movies_loading = true;
+  pagination = new Pagination();
 
   constructor(
     private moviesService: MoviesService,
@@ -23,24 +21,24 @@ export class MoviesComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe(params => {
-        this.page = +params['page'];
-        this.state = params['state'];
+        this.pagination.page = +params['page'];
+        this.pagination.state = params['state'];
         this.movies = [];
         this.moreMovies(false);
       });
   }
 
   moreMovies(add) {
-    this.movies_loading = true;
-    this.loadMovies(this.state, (add) ? ++this.page : this.page);
+    this.pagination.loading = true;
+    this.loadMovies(this.pagination.state, (add) ? ++this.pagination.page : this.pagination.page);
   }
 
   loadMovies(state, page) {
-    if (!this.no_more_pages) {
+    if (!this.pagination.no_pages_left) {
       this.moviesService.getMovies(state, page)
         .then(response => {
-          this.movies_loading = false;
-          this.total_pages = response.total_pages;
+          this.pagination.loading = false;
+          this.pagination.total_pages = response.total_pages;
           if (this.movies === undefined) {
             this.movies = response.results;
           } else {
@@ -49,12 +47,12 @@ export class MoviesComponent implements OnInit {
             });
           }
         });
-      if (page >= this.total_pages) {
-        this.no_more_pages = true;
+      if (page >= this.pagination.total_pages) {
+        this.pagination.no_pages_left = true;
         return;
       }
     } else {
-      this.no_more_pages = true;
+      this.pagination.no_pages_left = true;
     }
   }
 }

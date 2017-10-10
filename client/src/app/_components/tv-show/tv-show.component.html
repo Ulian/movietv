@@ -19,7 +19,7 @@
 
   <div class="row" *ngIf="show.created_by.length > 0">
     <h4>Creada por</h4>
-    <div *ngFor="let person of show.created_by | slice:0:createdBy_limit">
+    <div *ngFor="let person of show.created_by | slice:0:created_by.limit">
   		<div class="col-md-3 col-sm-4 text-center">
   			<a routerLink="/celebritie/{{ person.id }}/{{ person.name | slugify }}">
           <img appImageHover src="{{ (person.profile_path) ? 'https://image.tmdb.org/t/p/w185' + person.profile_path : 'https://placehold.it/185x278?text=' + person.name }}" class="poster" />
@@ -27,13 +27,13 @@
   		</div>
   	</div>
   	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('createdBy')" *ngIf="!hide_createdBy_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('created_by')" *ngIf="!created_by.hide_button">Cargar más...</div>
     </a>
   </div>
 
   <div class="row" *ngIf="show.credits.crew.length > 0">
   	<h4>Producción</h4>
-  	<div *ngFor="let person of show.credits.crew | slice:0:crew_limit">
+  	<div *ngFor="let person of show.credits.crew | slice:0:crew.limit">
   		<div class="col-md-3 col-sm-4 text-center">
   			<a routerLink="/celebritie/{{ person.id }}/{{ person.name | slugify }}">
           <img appImageHover src="{{ (person.profile_path) ? 'https://image.tmdb.org/t/p/w185' + person.profile_path : 'https://placehold.it/185x278?text=' + person.name }}" class="poster" />
@@ -41,13 +41,13 @@
   		</div>
   	</div>
   	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('crew')" *ngIf="!hide_crew_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('crew')" *ngIf="!crew.hide_button">Cargar más...</div>
     </a>
   </div>
 
   <div class="row" *ngIf="show.credits.cast.length > 0">
   	<h4>Reparto</h4>
-  	<div *ngFor="let person of show.credits.cast  | slice:0:cast_limit">
+  	<div *ngFor="let person of show.credits.cast  | slice:0:cast.limit">
   		<div class="col-md-3 col-sm-4 text-center">
   			<a routerLink="/celebritie/{{ person.id }}/{{ person.name | slugify }}">
           <img appImageHover src="{{ (person.profile_path) ? 'https://image.tmdb.org/t/p/w185' + person.profile_path : 'https://placehold.it/185x278?text=' + person.name }}" class="poster" />
@@ -55,13 +55,13 @@
   		</div>
   	</div>
   	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('cast')" *ngIf="!hide_cast_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('cast')" *ngIf="!cast.hide_button">Cargar más...</div>
     </a>
   </div>
 
   <div class="row" *ngIf="show.seasons.length > 0">
   	<h4>Temporadas</h4>
-  	<div *ngFor="let season of show.seasons  | slice:0:season_limit">
+  	<div *ngFor="let season of show.seasons  | slice:0:seasons.limit">
   		<div class="col-md-3 col-sm-4 text-center">
   			<a routerLink="/season/{{ show.id }}/{{ show.name | slugify }}-season-{{ season.season_number }}">
           <img appImageHover src="{{ (season.poster_path) ? 'https://image.tmdb.org/t/p/w185' + season.poster_path : 'https://placehold.it/185x278?text=' + show.name }}" class="poster" />
@@ -69,7 +69,7 @@
   		</div>
   	</div>
   	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('season')" *ngIf="!hide_season_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('seasons')" *ngIf="!seasons.hide_button">Cargar más...</div>
     </a>
   </div>
 </ng-template>

@@ -18,10 +18,8 @@ export class SeasonComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe(params => {
-        console.log(+params['number'].split('-').pop());
         this.showsService.getSeason(+params['id'], +params['number'].split('-').pop())
           .then(response => {
-            console.log(response);
             this.season = response;
           });
       });

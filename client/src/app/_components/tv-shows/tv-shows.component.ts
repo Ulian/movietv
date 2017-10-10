@@ -3,6 +3,8 @@ import { ActivatedRoute } from '@angular/router';
 
 import { ShowsService } from '../../_services/index';
 
+import { Pagination } from '../../_interfaces/index';
+
 @Component({
   selector: 'app-tv-shows',
   templateUrl: './tv-shows.component.html',
@@ -10,11 +12,7 @@ import { ShowsService } from '../../_services/index';
 })
 export class TvShowsComponent implements OnInit {
   shows: string[];
-  page: number;
-  state: string;
-  total_pages: number;
-  no_more_pages = false;
-  shows_loading = true;
+  pagination = new Pagination();
 
   constructor(
     private showsService: ShowsService,
@@ -23,24 +21,24 @@ export class TvShowsComponent implements OnInit {
   ngOnInit() {
     this.route.params
       .subscribe(params => {
-        this.page = +params['page'];
-        this.state = params['state'];
+        this.pagination.page = +params['page'];
+        this.pagination.state = params['state'];
         this.shows = [];
         this.moreShows(false);
       });
   }
 
   moreShows(add) {
-    this.shows_loading = true;
-    this.loadShows(this.state, (add) ? ++this.page : this.page);
+    this.pagination.loading = true;
+    this.loadShows(this.pagination.state, (add) ? ++this.pagination.page : this.pagination.page);
   }
 
   loadShows(state, page) {
-    if (!this.no_more_pages) {
+    if (!this.pagination.no_pages_left) {
       this.showsService.getShows(state, page)
         .then(response => {
-          this.shows_loading = false;
-          this.total_pages = response.total_pages;
+          this.pagination.loading = false;
+          this.pagination.total_pages = response.total_pages;
           if (this.shows === undefined) {
             this.shows = response.results;
           } else {
@@ -49,12 +47,12 @@ export class TvShowsComponent implements OnInit {
             });
           }
         });
-      if (page >= this.total_pages) {
-        this.no_more_pages = true;
+      if (page >= this.pagination.total_pages) {
+        this.pagination.no_pages_left = true;
         return;
       }
     } else {
-      this.no_more_pages = true;
+      this.pagination.no_pages_left = true;
     }
   }
 }

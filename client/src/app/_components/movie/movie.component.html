@@ -21,7 +21,7 @@
 
   <div class="row" *ngIf="movie.credits.crew.length > 0">
   	<h4>Producción</h4>
-  	<div *ngFor="let person of movie.credits.crew | slice:0:crew_limit">
+  	<div *ngFor="let person of movie.credits.crew | slice:0:crew.limit">
       <div class="col-md-3 col-sm-4 text-center">
   			<a routerLink="/celebritie/{{ person.id }}/{{ person.name | slugify }}">
           <img appImageHover src="{{ (person.profile_path) ? 'https://image.tmdb.org/t/p/w185' + person.profile_path : 'https://placehold.it/185x278?text=' + person.name }}" class="poster" />
@@ -29,13 +29,13 @@
   		</div>
   	</div>
   	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('crew')" *ngIf="!hide_crew_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('crew')" *ngIf="!crew.hide_button">Cargar más...</div>
     </a>
   </div>
 
   <div class="row" *ngIf="movie.credits.cast.length > 0">
   	<h4>Reparto</h4>
-  	<div *ngFor="let person of movie.credits.cast | slice:0:cast_limit ">
+  	<div *ngFor="let person of movie.credits.cast | slice:0:cast.limit ">
   		<div class="col-md-3 col-sm-4 text-center">
   			<a routerLink="/celebritie/{{ person.id }}/{{ person.name | slugify }}">
           <img appImageHover src="{{ (person.profile_path) ? 'https://image.tmdb.org/t/p/w185' + person.profile_path : 'https://placehold.it/185x278?text=' + person.name }}" class="poster" />
@@ -43,31 +43,31 @@
   		</div>
   	</div>
   	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('cast')" *ngIf="!hide_cast_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('cast')" *ngIf="!cast.hide_button">Cargar más...</div>
     </a>
   </div>
 
   <div class="row" *ngIf="movie.images.backdrops.length > 0">
   	<h4>Imágenes</h4>
-  	<div class="col-md-3 col-sm-4" *ngFor="let image of movie.images.backdrops | slice:0:images_limit">
+  	<div class="col-md-3 col-sm-4" *ngFor="let image of movie.images.backdrops | slice:0:images.limit">
   		<a class="pointer" (click)="openModal('https://image.tmdb.org/t/p/w1280' + image.file_path, true)">
         <img src="{{ 'https://image.tmdb.org/t/p/w1280' + image.file_path }}" class="img-responsive img-space"/>
       </a>
   	</div>
   	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('images')" *ngIf="!hide_images_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('images')" *ngIf="!images.hide_button">Cargar más...</div>
     </a>
   </div>
 
   <div class="row" *ngIf="movie.videos.results.length > 0">
     <h4>Videos</h4>
-    <div class="col-md-6 vid-space" *ngFor="let video of movie.videos.results | slice:0:videos_limit">
+    <div class="col-md-6 vid-space" *ngFor="let video of movie.videos.results | slice:0:videos.limit">
       <div class="embed-responsive embed-responsive-16by9">
         <iframe class="embed-responsive-item" [src]="video.url" frameborder="0" allowfullscreen></iframe>
       </div>
     </div>
     <a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('videos')" *ngIf="!hide_videos_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('videos')" *ngIf="!videos.hide_button">Cargar más...</div>
     </a>
   </div>
 

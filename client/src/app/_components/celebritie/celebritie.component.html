@@ -21,27 +21,25 @@
 
   <div class="row" *ngIf="celebritie.combined_credits.cast.length > 0">
     <h4>Reparto en...</h4>
-    <div class="col-md-3 col-sm-4 text-center" *ngFor="let movie of celebritie.combined_credits.cast | slice:0:cast_limit" >
+    <div class="col-md-3 col-sm-4 text-center" *ngFor="let movie of celebritie.combined_credits.cast | slice:0:cast.limit" >
       <a routerLink="/{{ (movie.media_type == 'movie') ? 'movie' : 'tvshow' }}/{{ movie.id }}/{{ (movie.media_type == 'movie') ? (movie.title | slugify) : (movie.name | slugify) }}">
         <img appImageHover src="{{ (movie.poster_path) ? 'https://image.tmdb.org/t/p/w185' + movie.poster_path : 'https://placehold.it/185x278?text=' + ((movie.title) ? movie.title : movie.name) }}" class="poster animated"/>
       </a>
     </div>
     <a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('cast')" *ngIf="!hide_cast_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('cast')" *ngIf="!cast.hide_button">Cargar más...</div>
     </a>
   </div>
 
   <div class="row" *ngIf="celebritie.combined_credits.crew.length > 0">
   	<h4>Producción en..</h4>
-  	<div *ngFor="let movie of celebritie.combined_credits.crew | slice:0:crew_limit">
-  		<div class="col-md-3 col-sm-4 text-center">
-  			<a routerLink="/{{ (movie.media_type == 'movie') ? 'movie' : 'show' }}/{{ movie.id }}/{{ movie.title | slugify }}">
-          <img appImageHover src="{{ (movie.poster_path) ? 'https://image.tmdb.org/t/p/w185' + movie.poster_path : 'https://placehold.it/185x278?text=' + ((movie.title) ? movie.title : movie.name) }}" class="poster animated"/>
-  			</a>
-  		</div>
+  	<div class="col-md-3 col-sm-4 text-center" *ngFor="let movie of celebritie.combined_credits.crew | slice:0:crew.limit">
+			<a routerLink="/{{ (movie.media_type == 'movie') ? 'movie' : 'show' }}/{{ movie.id }}/{{ movie.title | slugify }}">
+        <img appImageHover src="{{ (movie.poster_path) ? 'https://image.tmdb.org/t/p/w185' + movie.poster_path : 'https://placehold.it/185x278?text=' + ((movie.title) ? movie.title : movie.name) }}" class="poster animated"/>
+			</a>
   	</div>
   	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('crew')" *ngIf="!hide_crew_button">Cargar más...</div>
+      <div class="btn btn-primary form-control text-center" (click)="loadMore('crew')" *ngIf="!crew.hide_button">Cargar más...</div>
     </a>
   </div>
 
