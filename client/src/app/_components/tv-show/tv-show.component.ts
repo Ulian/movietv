@@ -13,8 +13,6 @@ import { DataLimit } from '../../_interfaces/index';
 export class TvShowComponent implements OnInit {
   show: string[];
   created_by = new DataLimit();
-  crew = new DataLimit();
-  cast = new DataLimit();
   seasons = new DataLimit();
 
   constructor(
@@ -28,8 +26,6 @@ export class TvShowComponent implements OnInit {
           .then(response => {
             this.show = response;
             this.loadMore('created_by');
-            this.loadMore('crew');
-            this.loadMore('cast');
             this.loadMore('seasons');
           });
       });
@@ -37,8 +33,6 @@ export class TvShowComponent implements OnInit {
 
   loadMore(type) {
     switch (type) {
-      case 'crew':
-      case 'cast':
       case 'created_by':
       case 'seasons':
         const limit = (type === 'crew' || type === 'cast') ? this.show['credits'][type] : this.show[type];

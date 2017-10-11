@@ -4,8 +4,8 @@
       <h4>{{ celebritie.name }}</h4>
       <img src="{{ (celebritie.profile_path) ? 'https://image.tmdb.org/t/p/w185' + celebritie.profile_path : 'https://placehold.it/185x278?text=' + celebritie.name }}" class="poster" />
       <div>
-  			<a *ngIf="celebritie.external_ids.twitter_id" routerLink="{{ 'https://twitter.com/' + celebritie.external_ids.twitter_id }}"><i class="fa fa-twitter-square fa-2x"></i></a>
-  			<a *ngIf="celebritie.external_ids.facebook_id" routerLink="{{ 'https://facebook.com/' + celebritie.external_ids.facebook_id }}"><i class="fa fa-facebook-square fa-2x"></i></a>
+  			<a *ngIf="celebritie.external_ids.twitter_id" href="{{ 'https://twitter.com/' + celebritie.external_ids.twitter_id }}"><i class="fa fa-twitter-square fa-2x"></i></a>
+  			<a *ngIf="celebritie.external_ids.facebook_id" href="{{ 'https://facebook.com/' + celebritie.external_ids.facebook_id }}"><i class="fa fa-facebook-square fa-2x"></i></a>
   			<a *ngIf="celebritie.homepage" routerLink="{{ celebritie.homepage }}"><i class="fa fa-home fa-2x"></i></a>
   		</div>
     </div>
@@ -19,29 +19,9 @@
   	</div>
   </div>
 
-  <div class="row" *ngIf="celebritie.combined_credits.cast.length > 0">
-    <h4>Reparto en...</h4>
-    <div class="col-md-3 col-sm-4 text-center" *ngFor="let movie of celebritie.combined_credits.cast | slice:0:cast.limit" >
-      <a routerLink="/{{ (movie.media_type == 'movie') ? 'movie' : 'tvshow' }}/{{ movie.id }}/{{ (movie.media_type == 'movie') ? (movie.title | slugify) : (movie.name | slugify) }}">
-        <img appImageHover src="{{ (movie.poster_path) ? 'https://image.tmdb.org/t/p/w185' + movie.poster_path : 'https://placehold.it/185x278?text=' + ((movie.title) ? movie.title : movie.name) }}" class="poster animated"/>
-      </a>
-    </div>
-    <a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('cast')" *ngIf="!cast.hide_button">Cargar más...</div>
-    </a>
-  </div>
+  <app-media-list media="celebritie" type="cast" [data]="celebritie.combined_credits.cast"></app-media-list>
 
-  <div class="row" *ngIf="celebritie.combined_credits.crew.length > 0">
-  	<h4>Producción en..</h4>
-  	<div class="col-md-3 col-sm-4 text-center" *ngFor="let movie of celebritie.combined_credits.crew | slice:0:crew.limit">
-			<a routerLink="/{{ (movie.media_type == 'movie') ? 'movie' : 'show' }}/{{ movie.id }}/{{ movie.title | slugify }}">
-        <img appImageHover src="{{ (movie.poster_path) ? 'https://image.tmdb.org/t/p/w185' + movie.poster_path : 'https://placehold.it/185x278?text=' + ((movie.title) ? movie.title : movie.name) }}" class="poster animated"/>
-			</a>
-  	</div>
-  	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('crew')" *ngIf="!crew.hide_button">Cargar más...</div>
-    </a>
-  </div>
+  <app-media-list media="celebritie" type="crew" [data]="celebritie.combined_credits.crew"></app-media-list>
 
   <ng-template [ngIf]="celebritie.tagged_images">
     <div class="row" *ngIf="celebritie.tagged_images.results.length > 0">
@@ -62,7 +42,4 @@
   <span defaultOverlayTarget></span>
 </ng-template>
 
-<div class="text-center after-nav" *ngIf="!celebritie || celebritie_images_loading">
-  <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-  <span class="sr-only">Loading...</span>
-</div>
+<app-loading [waiting]="!celebritie || celebritie_images_loading"></app-loading>

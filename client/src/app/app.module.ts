@@ -18,8 +18,11 @@ import { AppComponent,
          CelebritiesComponent,
          CelebritieComponent,
          SearchComponent,
-         SearchNavComponent,
          CollectionComponent } from './_components/index';
+
+import { MediaListComponent,
+         LoadingComponent,
+         SearchNavComponent } from './_components/_partials/index';
 
 import { RoutingModule } from './_modules/index';
 
@@ -32,6 +35,7 @@ import { CelebritiesService,
 import { ImageHoverDirective } from './_directives/index';
 
 import { AppConfig } from './app.config';
+import {  } from './loading/loading.component';
 
 @NgModule({
   declarations: [
@@ -46,7 +50,9 @@ import { AppConfig } from './app.config';
     CelebritieComponent,
     SearchComponent,
     SearchNavComponent,
-    CollectionComponent
+    CollectionComponent,
+    MediaListComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,

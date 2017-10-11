@@ -19,33 +19,9 @@
   	</div>
   </div>
 
-  <div class="row" *ngIf="movie.credits.crew.length > 0">
-  	<h4>Producción</h4>
-  	<div *ngFor="let person of movie.credits.crew | slice:0:crew.limit">
-      <div class="col-md-3 col-sm-4 text-center">
-  			<a routerLink="/celebritie/{{ person.id }}/{{ person.name | slugify }}">
-          <img appImageHover src="{{ (person.profile_path) ? 'https://image.tmdb.org/t/p/w185' + person.profile_path : 'https://placehold.it/185x278?text=' + person.name }}" class="poster" />
-  			</a>
-  		</div>
-  	</div>
-  	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('crew')" *ngIf="!crew.hide_button">Cargar más...</div>
-    </a>
-  </div>
+  <app-media-list media="movie" type="crew" [data]="movie.credits.crew"></app-media-list>
 
-  <div class="row" *ngIf="movie.credits.cast.length > 0">
-  	<h4>Reparto</h4>
-  	<div *ngFor="let person of movie.credits.cast | slice:0:cast.limit ">
-  		<div class="col-md-3 col-sm-4 text-center">
-  			<a routerLink="/celebritie/{{ person.id }}/{{ person.name | slugify }}">
-          <img appImageHover src="{{ (person.profile_path) ? 'https://image.tmdb.org/t/p/w185' + person.profile_path : 'https://placehold.it/185x278?text=' + person.name }}" class="poster" />
-  			</a>
-  		</div>
-  	</div>
-  	<a class="pointer">
-      <div class="btn btn-primary form-control text-center" (click)="loadMore('cast')" *ngIf="!cast.hide_button">Cargar más...</div>
-    </a>
-  </div>
+  <app-media-list media="movie" type="cast" [data]="movie.credits.cast"></app-media-list>
 
   <div class="row" *ngIf="movie.images.backdrops.length > 0">
   	<h4>Imágenes</h4>
@@ -74,7 +50,4 @@
   <span defaultOverlayTarget></span>
 </ng-template>
 
-<div class="text-center after-nav" *ngIf="!movie">
-  <i class="fa fa-spinner fa-pulse fa-3x fa-fw"></i>
-  <span class="sr-only">Loading...</span>
-</div>
+<app-loading [waiting]="!movie"></app-loading>

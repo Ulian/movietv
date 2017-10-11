@@ -7,5 +7,4 @@ export { SeasonComponent } from './season/season.component';
 export { CelebritiesComponent } from './celebrities/celebrities.component';
 export { CelebritieComponent } from './celebritie/celebritie.component';
 export { SearchComponent } from './search/search.component';
-export { SearchNavComponent } from './search-nav/search-nav.component';
 export { CollectionComponent } from './collection/collection.component';

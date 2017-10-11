@@ -15,8 +15,6 @@ import { DataLimit } from '../../_interfaces/index';
 })
 export class MovieComponent implements OnInit {
   movie: object;
-  cast = new DataLimit();
-  crew = new DataLimit();
   images = new DataLimit();
   videos = new DataLimit(2, false, 2);
 
@@ -35,8 +33,6 @@ export class MovieComponent implements OnInit {
               response['videos']['results'][index]['url'] = this.sanitizeUrl(`https://www.youtube.com/embed/${video.key}`);
             });
             this.movie = response;
-            this.loadMore('cast');
-            this.loadMore('crew');
             this.loadMore('images');
             this.loadMore('videos');
           });
@@ -45,8 +41,6 @@ export class MovieComponent implements OnInit {
 
   loadMore(type) {
     switch (type) {
-      case 'cast':
-      case 'crew':
       case 'images':
       case 'videos':
         const loadType = (type !== 'images' && type !== 'videos') ? 'credits' : type;
