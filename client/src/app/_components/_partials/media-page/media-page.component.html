@@ -1,0 +1,8 @@
+<div class="row text-center {{ (type === 'celebritie') ? 'after-nav' : ''}}">
+  <div class="col-md-3 col-sm-4" *ngFor="let media of data">
+    <a routerLink="/{{ type }}/{{ media.id }}/{{ ((media.name) ? media.name : media.title) | slugify }}">
+      <img *ngIf="type === 'celebritie'" appImageHover src="{{ (media.profile_path) ? 'https://image.tmdb.org/t/p/w185' + media.profile_path : 'https://placehold.it/185x278?text=' + media.name }}" class="poster animated" />
+      <img *ngIf="type === 'tvshow' || type === 'movie'" appImageHover src="{{ (media.poster_path) ? 'https://image.tmdb.org/t/p/w185' + media.poster_path : 'https://placehold.it/185x278?text=' + ((media.name) ? media.name : media.title) }}" class="poster animated"/>
+    </a>
+  </div>
+</div>

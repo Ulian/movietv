@@ -19,9 +19,9 @@
   	</div>
   </div>
 
-  <app-media-list media="movie" type="crew" [data]="movie.credits.crew"></app-media-list>
+  <app-media-list media="person" type="crew" [data]="movie.credits.crew"></app-media-list>
 
-  <app-media-list media="movie" type="cast" [data]="movie.credits.cast"></app-media-list>
+  <app-media-list media="person" type="cast" [data]="movie.credits.cast"></app-media-list>
 
   <div class="row" *ngIf="movie.images.backdrops.length > 0">
   	<h4>Imágenes</h4>

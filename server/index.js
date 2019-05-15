@@ -19,10 +19,6 @@ app.use(cors())
 const api = require('./routes/api')
 app.use('/api', api)
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname, '../client/dist/index.html'))
-})
-
 const server = app.listen(port, () => {
   console.log(`Server running at port ${port}`)
 })

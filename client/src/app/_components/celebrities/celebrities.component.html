@@ -1,12 +1,6 @@
-<ng-template [ngIf]="celebrities">
-  <div class="row text-center after-nav">
-    <div class="col-md-3 col-sm-4"*ngFor="let celebritie of celebrities">
-      <a routerLink="/celebritie/{{ celebritie.id }}/{{ celebritie.name | slugify }}">
-        <img appImageHover src="{{ (celebritie.profile_path) ? 'https://image.tmdb.org/t/p/w185' + celebritie.profile_path : 'https://placehold.it/185x278?text=' + celebritie.name }}" class="poster animated" />
-      </a>
-    </div>
-  </div>
+<app-media-page type="celebritie" [data]="celebrities"></app-media-page>
 
+<ng-template [ngIf]="celebrities">
   <a class="pointer" *ngIf="celebrities && !pagination.no_pages_left && !pagination.loading">
     <div class="btn btn-primary form-control text-center" (click)="moreCelebrities(true)">Cargar más...</div>
   </a>

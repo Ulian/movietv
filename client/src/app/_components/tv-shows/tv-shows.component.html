@@ -1,12 +1,6 @@
-<ng-template [ngIf]="shows">
-  <div class="row text-center">
-  	<div class="col-md-3 col-sm-4" *ngFor="let show of shows">
-  		<a routerLink="/tvshow/{{ show.id }}/{{ show.name | slugify }}">
-        <img appImageHover src="{{ (show.poster_path) ? 'https://image.tmdb.org/t/p/w185' + show.poster_path : 'https://placehold.it/185x278?text=' + show.name }}" class="poster animated"/>
-  		</a>
-  	</div>
-  </div>
+<app-media-page type="tvshow" [data]="shows"></app-media-page>
 
+<ng-template [ngIf]="shows">
   <a class="pointer" *ngIf="shows && !pagination.no_pages_left && !pagination.loading">
     <div class="btn btn-primary form-control text-center" (click)="moreShows(true)">Cargar más...</div>
   </a>

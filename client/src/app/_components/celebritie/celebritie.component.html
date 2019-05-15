@@ -19,9 +19,9 @@
   	</div>
   </div>
 
-  <app-media-list media="celebritie" type="cast" [data]="celebritie.combined_credits.cast"></app-media-list>
+  <app-media-list media="video" type="cast" [data]="celebritie.combined_credits.cast"></app-media-list>
 
-  <app-media-list media="celebritie" type="crew" [data]="celebritie.combined_credits.crew"></app-media-list>
+  <app-media-list media="video" type="crew" [data]="celebritie.combined_credits.crew"></app-media-list>
 
   <ng-template [ngIf]="celebritie.tagged_images">
     <div class="row" *ngIf="celebritie.tagged_images.results.length > 0">

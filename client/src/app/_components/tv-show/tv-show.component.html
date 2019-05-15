@@ -31,9 +31,9 @@
     </a>
   </div>
 
-  <app-media-list media="tvshow" type="crew" [data]="show.credits.crew"></app-media-list>
+  <app-media-list media="person" type="crew" [data]="show.credits.crew"></app-media-list>
 
-  <app-media-list media="tvshow" type="cast" [data]="show.credits.cast"></app-media-list>
+  <app-media-list media="person" type="cast" [data]="show.credits.cast"></app-media-list>
 
   <div class="row" *ngIf="show.seasons.length > 0">
   	<h4>Temporadas</h4>

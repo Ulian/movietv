@@ -1,22 +1,11 @@
 <div class="row" *ngIf="data.length > 0">
-  <h4 *ngIf="media === 'celebritie'">{{ (type == 'cast') ? 'Reparto en...' : 'Producción en...' }}</h4>
-  <h4 *ngIf="media === 'movie' || media === 'tvshow'">{{ (type == 'cast') ? 'Reparto' : 'Producción' }}</h4>
+  <h4>{{ list.title }}</h4>
 
-  <ng-template [ngIf]="media === 'celebritie'">
-    <div class="col-md-3 col-sm-4 text-center" *ngFor="let media of data | slice:0:list.limit" >
-      <a routerLink="/{{ (media.media_type == 'movie') ? 'movie' : 'tvshow' }}/{{ media.id }}/{{ (media.media_type == 'movie') ? (media.title | slugify) : (media.name | slugify) }}">
-        <img appImageHover src="{{ (media.poster_path) ? 'https://image.tmdb.org/t/p/w185' + media.poster_path : 'https://placehold.it/185x278?text=' + ((media.title) ? media.title : media.name) }}" class="poster animated"/>
-      </a>
-    </div>
-  </ng-template>
-
-  <ng-template [ngIf]="media === 'movie' || media === 'tvshow'">
-    <div class="col-md-3 col-sm-4 text-center"*ngFor="let person of data | slice:0:list.limit">
-      <a routerLink="/celebritie/{{ person.id }}/{{ person.name | slugify }}">
-        <img appImageHover src="{{ (person.profile_path) ? 'https://image.tmdb.org/t/p/w185' + person.profile_path : 'https://placehold.it/185x278?text=' + person.name }}" class="poster" />
-      </a>
-    </div>
-  </ng-template>
+  <div class="col-md-3 col-sm-4 text-center" *ngFor="let item of data | slice:0:list.limit">
+    <a routerLink="/{{ item.route }}/{{ item.name | slugify }}">
+      <img appImageHover src="{{ item.image }}" class="poster animated" />
+    </a>
+  </div>
 
   <a class="pointer">
     <div class="btn btn-primary form-control text-center" (click)="loadMore()" *ngIf="!list.hide_button">Cargar más...</div>
