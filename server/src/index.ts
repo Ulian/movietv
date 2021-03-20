@@ -1,10 +1,11 @@
-const express = require('express')
-const bodyParser = require('body-parser')
-const path = require('path')
-const apicache = require('apicache')
-const cors = require('cors')
+import express from 'express';
+import bodyParser from 'body-parser';
+import path from 'path';
+import apicache from 'apicache';
+import cors from 'cors';
 
-const config = require('./config/config')
+import config from './config/config.json';
+import api from './routes/api';
 
 const port = process.env.PORT || config.SERVER.PORT
 
@@ -16,7 +17,6 @@ app.use(bodyParser.json())
 app.use(apicache.middleware(`${config.API.CACHE_TIME} ${config.API.CACHE_TYPE}`))
 app.use(cors())
 
-const api = require('./routes/api')
 app.use('/api', api)
 
 const server = app.listen(port, () => {

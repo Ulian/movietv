@@ -8,7 +8,7 @@ chai.use(chaiHttp)
 const should = chai.should()
 const expect = chai.expect
 
-const server = require('../../index')
+const server = require('../../src')
 
 describe('celebritiesController', () => {
   const celebId = 1245
