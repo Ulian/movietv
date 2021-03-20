@@ -5,7 +5,7 @@ chai.use(chaiHttp)
 
 const should = chai.should()
 
-const server = require('../../server/index')
+const server = require('../../index')
 
 describe('collectionsController', () => {
   const collectionId = 173710

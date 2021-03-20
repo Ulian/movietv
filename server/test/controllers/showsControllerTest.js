@@ -8,7 +8,7 @@ chai.use(chaiHttp)
 const should = chai.should()
 const expect = chai.expect
 
-const server = require('../../server/index')
+const server = require('../../index')
 
 describe('celebritiesController', () => {
   const states = ['airing_today', 'popular', 'top_rated', 'on_the_air']

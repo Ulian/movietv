@@ -2,10 +2,10 @@
   "name": "movietv",
   "version": "1.0.0",
   "description": "Información de películas y series",
-  "main": "server/index.js",
+  "main": "index.js",
   "scripts": {
     "test": "mocha test/**/*.js -c",
-    "start": "node server/index.js"
+    "start": "node index.js"
   },
   "author": "Ulian",
   "license": "ISC",
@@ -18,22 +18,22 @@
   },
   "homepage": "https://github.com/Ulian/movietv#readme",
   "dependencies": {
-    "apicache": "^0.8.7",
-    "body-parser": "^1.18.2",
+    "apicache": "^1.6.2",
+    "body-parser": "^1.19.0",
     "cors": "^2.8.5",
-    "express": "^4.16.0",
+    "express": "^4.17.1",
     "moviedb": "^0.2.10",
     "path": "^0.12.7"
   },
   "devDependencies": {
-    "chai": "^4.2.0",
-    "chai-http": "^3.0.0",
-    "eslint": "^4.19.1",
-    "eslint-config-standard": "^10.2.1",
-    "eslint-plugin-import": "^2.17.2",
-    "eslint-plugin-node": "^5.2.1",
-    "eslint-plugin-promise": "^3.8.0",
-    "eslint-plugin-standard": "^3.1.0",
-    "mocha": "^3.5.3"
+    "chai": "^4.3.4",
+    "chai-http": "^4.3.0",
+    "eslint": "^7.22.0",
+    "eslint-config-standard": "^16.0.2",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.3.1",
+    "eslint-plugin-standard": "^5.0.0",
+    "mocha": "^8.3.2"
   }
 }

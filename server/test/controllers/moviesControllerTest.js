@@ -5,7 +5,7 @@ chai.use(chaiHttp)
 
 const should = chai.should()
 
-const server = require('../../server/index')
+const server = require('../../index')
 
 describe('celebritiesController', () => {
   const states = ['now_playing', 'popular', 'top_rated', 'upcoming']

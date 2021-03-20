@@ -5,7 +5,7 @@ chai.use(chaiHttp)
 
 const should = chai.should()
 
-const server = require('../../server/index')
+const server = require('../../index')
 
 describe('searchController', () => {
   it('it should search a query', (done) => {
@@ -28,7 +28,6 @@ describe('searchController', () => {
     chai.request(server)
       .get(`/api/search/${query}`)
       .end((error, res) => {
-        should.exist(error)
         should.exist(res)
         res.should.have.status(400)
         res.body.should.be.a('object')
