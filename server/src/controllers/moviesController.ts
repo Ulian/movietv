@@ -1,4 +1,6 @@
 import { Request, Response } from "express";
+
+import mapShowStateToMethod from '../helpers/mapShowStateToMethod';
 import config  from '../config/config.json';
 
 const MovieDB = require('moviedb')(config.API.KEY)
@@ -6,47 +8,20 @@ const language = config.API.LANGUAGE || 'es-ES'
 
 class MoviesController {
   getMovies(req: Request, res: Response) {
-    const states = ['now_playing', 'popular', 'top_rated', 'upcoming']
-    let { page, state } = req.params
-    if (page === undefined) page = "1"
-
-    let movieMethod
+    const { page, state } = req.params;
 
     const params = {
-      page,
+      page: page || 1,
       language
     }
 
-    if (!states.includes(state)) {
-      state = 'popular'
-    }
-
-    switch (state) {
-      case 'now_playing': {
-        movieMethod = 'miscNowPlayingMovies'
-        break
-      }
-      case 'popular': {
-        movieMethod = 'miscPopularMovies'
-        break
-      }
-      case 'top_rated': {
-        movieMethod = 'miscTopRatedMovies'
-        break
-      }
-      case 'upcoming': {
-        movieMethod = 'miscUpcomingMovies'
-        break
-      }
-    }
-
-    MovieDB[movieMethod](params, (error, response) => {
+    MovieDB[mapShowStateToMethod(state)](params, (error, response) => {
       if (error || !response) {
         return res.status(400).json({ message: JSON.parse(error.response.text).status_message })
       }
 
       if (page > response.total_pages) {
-        let url = req.url.split('/')
+        const url = req.url.split('/')
         url.shift()
         url.pop()
         return res.redirect(`${req.baseUrl}/${url.join('/')}/${response.total_pages}`)
