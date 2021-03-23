@@ -1,4 +1,6 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
+
+import mapShowStateToMethod from '../helpers/mapShowStateToMethod';
 import config from '../config/config.json';
 
 const MovieDB = require('moviedb')(config.API.KEY)
@@ -6,47 +8,20 @@ const language = config.API.LANGUAGE || 'es-ES'
 
 class ShowsController {
   getShows(req: Request, res: Response) {
-    const states = ['airing_today', 'popular', 'top_rated', 'on_the_air']
-    let { page, state } = req.params
-    if (page === undefined) page = "1"
-
-    let showMethod
+    const { page, state } = req.params
 
     const params = {
-      page,
+      page: page || 1,
       language
     }
 
-    if (!states.includes(state)) {
-      state = 'popular'
-    }
-
-    switch (state) {
-      case 'airing_today': {
-        showMethod = 'tvAiringToday'
-        break
-      }
-      case 'popular': {
-        showMethod = 'miscPopularTvs'
-        break
-      }
-      case 'top_rated': {
-        showMethod = 'miscTopRatedTvs'
-        break
-      }
-      case 'on_the_air': {
-        showMethod = 'tvOnTheAir'
-        break
-      }
-    }
-
-    MovieDB[showMethod](params, (error, response) => {
+    MovieDB[mapShowStateToMethod(state)](params, (error, response) => {
       if (error || !response) {
         return res.status(400).json({ message: JSON.parse(error.response.text).status_message })
       }
 
       if (page > response.total_pages) {
-        let url = req.url.split('/')
+        const url = req.url.split('/')
         url.shift()
         url.pop()
         return res.redirect(`${req.baseUrl}/${url.join('/')}/${response.total_pages}`)
@@ -76,16 +51,13 @@ class ShowsController {
   }
 
   getSeason(req: Request, res: Response) {
-    const { id } = req.params;
-    let { number: seasonNumber } = req.params
-
-    if (seasonNumber === undefined) seasonNumber = "1"
+    const { id, number: seasonNumber } = req.params;
 
     const appendToResponse = 'images,videos'
 
     const params = {
       id,
-      season_number: seasonNumber,
+      season_number: seasonNumber || 1,
       append_to_response: appendToResponse,
       language
     }
