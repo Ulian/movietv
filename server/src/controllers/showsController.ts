@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 
 import mapShowStateToMethod from '../helpers/mapShowStateToMethod';
 import config from '../config/config.json';
+import errorResponseParser, { MovieDBErrorResponse } from '../helpers/errorResponseParser';
 
 const MovieDB = require('moviedb')(config.API.KEY)
 const language = config.API.LANGUAGE || 'es-ES'
@@ -15,9 +16,9 @@ class ShowsController {
       language
     }
 
-    MovieDB[mapShowStateToMethod(state)](params, (error, response) => {
+    MovieDB[mapShowStateToMethod(state)](params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
-        return res.status(400).json({ message: JSON.parse(error.response.text).status_message })
+        return res.status(400).json({ message: errorResponseParser(error) })
       }
 
       if (page > response.total_pages) {
@@ -41,9 +42,9 @@ class ShowsController {
       language
     }
 
-    MovieDB.tvInfo(params, (error, response) => {
+    MovieDB.tvInfo(params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
-        return res.status(400).json({ message: JSON.parse(error.response.text).status_message })
+        return res.status(400).json({ message: errorResponseParser(error) })
       }
 
       return res.status(200).json(response)
@@ -62,9 +63,9 @@ class ShowsController {
       language
     }
 
-    MovieDB.tvSeasonInfo(params, (error, response) => {
+    MovieDB.tvSeasonInfo(params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
-        return res.status(400).json({ message: JSON.parse(error.response.text).status_message })
+        return res.status(400).json({ message: errorResponseParser(error) })
       }
 
       return res.status(200).json(response)

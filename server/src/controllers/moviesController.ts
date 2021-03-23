@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 
+import errorResponseParser, { MovieDBErrorResponse } from '../helpers/errorResponseParser';
 import mapShowStateToMethod from '../helpers/mapShowStateToMethod';
 import config  from '../config/config.json';
 
@@ -15,9 +16,9 @@ class MoviesController {
       language
     }
 
-    MovieDB[mapShowStateToMethod(state)](params, (error, response) => {
+    MovieDB[mapShowStateToMethod(state)](params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
-        return res.status(400).json({ message: JSON.parse(error.response.text).status_message })
+        return res.status(400).json({ message: errorResponseParser(error) })
       }
 
       if (page > response.total_pages) {
@@ -43,9 +44,9 @@ class MoviesController {
       language
     }
 
-    MovieDB.movieInfo(params, (error, response) => {
+    MovieDB.movieInfo(params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
-        return res.status(400).json({ message: JSON.parse(error.response.text).status_message })
+        return res.status(400).json({ message: errorResponseParser(error) })
       }
 
       return res.status(200).json(response)

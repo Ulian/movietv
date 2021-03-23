@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import config  from '../config/config.json';
+import errorResponseParser, { MovieDBErrorResponse } from '../helpers/errorResponseParser';
 
 const MovieDB = require('moviedb')(config.API.KEY)
 const language = config.API.LANGUAGE || 'es-ES'
@@ -13,9 +14,9 @@ class CollectionsController {
       language
     }
 
-    MovieDB.collectionInfo(params, (error, response) => {
+    MovieDB.collectionInfo(params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
-        return res.status(400).json({ message: JSON.parse(error.response.text).status_message })
+        return res.status(400).json({ message: errorResponseParser(error) })
       }
 
       return res.status(200).json(response)
