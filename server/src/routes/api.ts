@@ -15,8 +15,8 @@ routes.get('/tvshow/:id', showsController.getShow)
 routes.get('/season/:id/:number?', showsController.getSeason)
 
 routes.get('/celebrities/:page?', celebritiesController.getCelebrities)
-routes.get('/celebritie/:id', celebritiesController.getCelebritie)
-routes.get('/celebritie/:id/tagged_images/:page?', celebritiesController.getCelebritieImages)
+routes.get('/celebritie/:id', celebritiesController.getCelebrity)
+routes.get('/celebritie/:id/tagged_images/:page?', celebritiesController.getCelebrityImages)
 
 routes.get('/search/:query', searchController.query)
 

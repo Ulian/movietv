@@ -1,10 +1,9 @@
-import { Request, Response } from "express";
+import { Request, Response } from 'express';
+import config from '../config/config.json';
 
 import errorResponseParser, { MovieDBErrorResponse } from '../helpers/errorResponseParser';
 import mapShowStateToMethod from '../helpers/mapShowStateToMethod';
-import config  from '../config/config.json';
-
-const MovieDB = require('moviedb')(config.API.KEY)
+import MovieDBInstance from '../helpers/MovieDBInstance';
 const language = config.API.LANGUAGE || 'es-ES'
 
 class MoviesController {
@@ -16,7 +15,7 @@ class MoviesController {
       language
     }
 
-    MovieDB[mapShowStateToMethod(state)](params, (error: MovieDBErrorResponse, response) => {
+    MovieDBInstance[mapShowStateToMethod(state)](params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
         return res.status(400).json({ message: errorResponseParser(error) })
       }
@@ -44,7 +43,7 @@ class MoviesController {
       language
     }
 
-    MovieDB.movieInfo(params, (error: MovieDBErrorResponse, response) => {
+    MovieDBInstance.movieInfo(params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
         return res.status(400).json({ message: errorResponseParser(error) })
       }

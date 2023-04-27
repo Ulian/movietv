@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import config  from '../config/config.json';
 import errorResponseParser, {  MovieDBErrorResponse } from '../helpers/errorResponseParser';
+import MovieDBInstance from '../helpers/MovieDBInstance';
 
-const MovieDB = require('moviedb')(config.API.KEY)
 const language = config.API.LANGUAGE || 'es-ES'
 
 class CelebritiesController {
@@ -15,7 +15,7 @@ class CelebritiesController {
       language
     }
 
-    MovieDB.personPopular(params, (error: MovieDBErrorResponse, response) => {
+    MovieDBInstance.personPopular(params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
         return res.status(400).json({ message: errorResponseParser(error) })
       }
@@ -31,7 +31,7 @@ class CelebritiesController {
     })
   }
 
-  getCelebritie(req: Request, res: Response) { // TODO: celebritie biography when language is not english. (wikipedia as source?)
+  getCelebrity(req: Request, res: Response) { // TODO: celebritie biography when language is not english. (wikipedia as source?)
     const { id } = req.params
     const appendToResponse = 'combined_credits,tagged_images,external_ids'
 
@@ -41,7 +41,7 @@ class CelebritiesController {
       language
     }
 
-    MovieDB.personInfo(params, (error: MovieDBErrorResponse, response) => {
+    MovieDBInstance.personInfo(params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
         return res.status(400).json({ message: errorResponseParser(error) })
       }
@@ -50,17 +50,16 @@ class CelebritiesController {
     })
   }
 
-  getCelebritieImages(req: Request, res: Response) {
-    let { id, page } = req.params
-    if (page === undefined) page = "1"
+  getCelebrityImages(req: Request, res: Response) {
+    const { id, page } = req.params
 
     const params = {
       id,
-      page,
+      page: page || 1,
       language
     }
 
-    MovieDB.personTaggedImages(params, (error: MovieDBErrorResponse, response) => {
+    MovieDBInstance.personTaggedImages(params, (error: MovieDBErrorResponse, response) => {
       if (error || !response) {
         return res.status(400).json({ message: errorResponseParser(error) })
       }
